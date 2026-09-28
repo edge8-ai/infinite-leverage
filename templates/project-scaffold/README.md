@@ -2,7 +2,7 @@
 
 Brief one-paragraph description of what this project does and who it serves.
 
-> Scaffolded with [Infinite Leverage](https://github.com/talentedgeai/infinite-leverage)
+> Scaffolded with [Infinite Leverage](https://github.com/edge8-ai/infinite-leverage)
 > (`/il-project`) — a 4-agent team lives in `.claude/`; say what you need and the
 > right agent picks it up (see `CLAUDE.md`).
 

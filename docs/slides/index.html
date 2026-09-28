@@ -302,8 +302,8 @@
     <h2>One repo. It <span class="em">is</span> the marketplace.</h2>
     <p class="lead">Agents, skills, rules and the project scaffold live in <b>one</b> repo, which also serves the plugin. Client machines are consumers — never hand-edited.</p>
     <div class="grid" style="margin-top:24px;gap:12px">
-      <div class="repo"><span class="git">📦</span><div><b>talentedgeai/infinite-leverage</b><br><small>canonical &amp; public — 4 agents · 16 workflow skills · rules · scaffold · the plugin itself</small></div></div>
-      <div class="repo"><span class="git">🔒</span><div><b>talentedgeai/edge8-telemetry</b><br><small>private, Edge8-internal — effort tracking, kept entirely out of the product</small></div></div>
+      <div class="repo"><span class="git">📦</span><div><b>edge8-ai/infinite-leverage</b><br><small>canonical &amp; public — 4 agents · 16 workflow skills · rules · scaffold · the plugin itself</small></div></div>
+      <div class="repo"><span class="git">🔒</span><div><b>edge8-ai/edge8-telemetry</b><br><small>private, Edge8-internal — effort tracking, kept entirely out of the product</small></div></div>
     </div>
     <p class="sub">Merge to <code>main</code> → the marketplace serves the new version → installed plugins update themselves. Never edit agents on a client laptop.</p>
   </section>
@@ -326,7 +326,7 @@
     <h2>From zero to a shipping team</h2>
     <div class="steps">
       <div class="step"><div class="n">1</div><div><h3>Prerequisites</h3><p>Accounts on GitHub, Claude, Vercel and Supabase. Locally: <code>git</code>, an authenticated <code>gh</code>, <code>node</code>/<code>npm</code>, <code>perl</code> and <code>rsync</code> — <code>/il-doctor</code> checks every one.</p></div></div>
-      <div class="step"><div class="n">2</div><div><h3>Install the plugin</h3><p>Add the <code>talentedgeai/infinite-leverage</code> marketplace once; updates arrive through it. No permissions granted, no hooks, nothing written to <code>~/.claude/</code>.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h3>Install the plugin</h3><p>Add the <code>edge8-ai/infinite-leverage</code> marketplace once; updates arrive through it. No permissions granted, no hooks, nothing written to <code>~/.claude/</code>.</p></div></div>
       <div class="step"><div class="n">3</div><div><h3>Scaffold with /il-project</h3><p>The 4 agents, their skills and the engineering rules land in the project's own <code>.claude/</code>, alongside seeded product docs, a Next.js app and a first commit. Existing repos use <code>/il-adopt</code>.</p></div></div>
       <div class="step"><div class="n">4</div><div><h3>Brief the PM &amp; go</h3><p>The Product Manager gathers business context, then you simply ask — the team plans, builds, tests, and publishes.</p></div></div>
     </div>
@@ -339,7 +339,7 @@
     <p class="lead">Paste one prompt into a fresh Claude Code session — it's additive and safe even on a configured machine.</p>
     <div class="codeblock">
 <span class="c"># Register the marketplace once — updates arrive automatically after this</span>
-<span class="k">claude</span> plugin marketplace add <span class="s">talentedgeai/infinite-leverage</span>
+<span class="k">claude</span> plugin marketplace add <span class="s">edge8-ai/infinite-leverage</span>
 
 <span class="c"># Scaffold a project, then check it</span>
 <span class="k">Run</span> /il-project to set up a new client project.
@@ -374,7 +374,7 @@
     <h1>Your team is<br><span class="em">one prompt away.</span></h1>
     <p class="lead">Run <code>/il-project</code> to scaffold a project, <code>/il-doctor</code> to confirm it landed. Then point the Product Manager at your business and start asking.</p>
     <div class="badgeRow" style="justify-content:center">
-      <div class="repo"><span class="git">📦</span><div><b>github.com/talentedgeai/infinite-leverage</b></div></div>
+      <div class="repo"><span class="git">📦</span><div><b>github.com/edge8-ai/infinite-leverage</b></div></div>
     </div>
     <p class="sub center">Humans orchestrate. Agents act. Work outlives the operator.</p>
   </section>

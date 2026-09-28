@@ -16,7 +16,7 @@ installed per-project).
 
 **Every file this skill writes comes from ONE repo:**
 
-> https://github.com/talentedgeai/infinite-leverage
+> https://github.com/edge8-ai/infinite-leverage
 
 | What | Canonical path |
 |---|---|
@@ -119,7 +119,7 @@ newer than the skill instructions running.
 
 ```bash
 TMP=$(mktemp -d)
-REPO=talentedgeai/infinite-leverage
+REPO=edge8-ai/infinite-leverage
 
 # sed, not python3 — python3 is not a prerequisite, and when it was missing the
 # version came back empty and the clone silently fell back to main.

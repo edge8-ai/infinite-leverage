@@ -24,7 +24,7 @@ plugin, the 4 agent definitions, their skills, and the project scaffold.
 - Agent `.md` files stay thin — role + hard rules + skill index; workflow detail
   lives in skills. Keep each agent under ~4KB.
 - No telemetry, hooks, or company-internal content in this public repo —
-  that all belongs in `talentedgeai/edge8-telemetry` (private).
+  that all belongs in `edge8-ai/edge8-telemetry` (private).
 
 ## Release flow
 1. Bump `plugin/.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
@@ -38,7 +38,7 @@ plugin, the 4 agent definitions, their skills, and the project scaffold.
    compares the installed version against the newest tag to tell a client when
    to update — a cached older plugin is how a fixed bug keeps biting, since the
    `/il-project` steps themselves ship inside the plugin.
-5. **Confirm the mirror to `talentedgeai/infiniteleverage-8-plugin`** (private).
+5. **Confirm the mirror to `edge8-ai/infiniteleverage-8-plugin`** (private).
    The claude.ai org plugin directory can only sync private repos, so that repo
    distributes this plugin to every AIO Labs seat ("Installed by default") — a
    webhook on its `main` triggers the directory re-sync.
@@ -54,7 +54,7 @@ plugin, the 4 agent definitions, their skills, and the project scaffold.
    a registered SSH key, which is most of them.
 
    ```bash
-   gh repo clone talentedgeai/infiniteleverage-8-plugin /tmp/il-dist
+   gh repo clone edge8-ai/infiniteleverage-8-plugin /tmp/il-dist
    rm -rf /tmp/il-dist/.claude-plugin /tmp/il-dist/plugin
    git archive vX.Y.Z -- .claude-plugin plugin | tar -x -C /tmp/il-dist
    git -C /tmp/il-dist add -A && git -C /tmp/il-dist commit -m "mirror vX.Y.Z" && git -C /tmp/il-dist push

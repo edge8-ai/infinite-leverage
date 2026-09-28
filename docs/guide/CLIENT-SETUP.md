@@ -185,7 +185,7 @@ you truly need me.
    Windows use winget) — ask me once with a one-line reason, then handle
    it.
 4. Install the plugin:
-     claude plugin marketplace add talentedgeai/infinite-leverage
+     claude plugin marketplace add edge8-ai/infinite-leverage
      claude plugin install infiniteleverage@infiniteleverage
    If it says the plugin is already installed, update it instead:
      claude plugin update infiniteleverage@infiniteleverage
@@ -300,7 +300,7 @@ WHAT TO DO — QUIETLY, WITHOUT ASKING ME STEP BY STEP
    myself, leave it where it is and note it for the summary. Don't
    interrupt me about it.
 4. Get me onto the current version:
-     claude plugin marketplace add talentedgeai/infinite-leverage
+     claude plugin marketplace add edge8-ai/infinite-leverage
      claude plugin install infiniteleverage@infiniteleverage
    If it says the plugin is already installed, update it instead:
      claude plugin update infiniteleverage@infiniteleverage
@@ -363,7 +363,7 @@ paste. This table exists so none of it feels like magic.
 | `brew install gh` | Uses Homebrew to install the GitHub tool. |
 | `gh auth login` | Signs this computer in to your GitHub account — it opens your browser to prove it's really you. |
 | `gh auth status` | Asks: is this computer signed in to GitHub? |
-| `claude plugin marketplace add talentedgeai/infinite-leverage` | Tells Claude Code where Infinite Leverage lives. Run once, ever. |
+| `claude plugin marketplace add edge8-ai/infinite-leverage` | Tells Claude Code where Infinite Leverage lives. Run once, ever. |
 | `claude plugin install infiniteleverage@infiniteleverage` | Installs Infinite Leverage. |
 | `claude plugin update infiniteleverage@infiniteleverage` | Gets the newest version, if it's already installed. |
 | `/il-doctor` | A health check. Says what's missing or out of date, and how to fix it. |
