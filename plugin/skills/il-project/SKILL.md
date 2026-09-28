@@ -1,6 +1,6 @@
 ---
 name: il-project
-description: This skill should be used when the operator says "il project", "new project", "scaffold a project", "create infinite leverage project", "init new project", "start new client project", or "bootstrap project folder". Scaffolds a brand-new project directory from the canonical `templates/project-scaffold/` in `talentedgeai/infinite-leverage`, substitutes placeholders, wires the agent team into `.claude/`, seeds `docs/product/` (product.md, epics.md, epic-status.md) from any rich description the operator provides, seeds `docs/brand/` styling from a chosen or random getdesign.md reference, initializes git, and prints next steps. All operations are inline — no bundled scripts.
+description: This skill should be used when the operator says "il project", "new project", "scaffold a project", "create infinite leverage project", "init new project", "start new client project", or "bootstrap project folder". Scaffolds a brand-new project directory from the canonical `templates/project-scaffold/` in `edge8-ai/infinite-leverage`, substitutes placeholders, wires the agent team into `.claude/`, seeds `docs/product/` (product.md, epics.md, epic-status.md) from any rich description the operator provides, seeds `docs/brand/` styling from a chosen or random getdesign.md reference, initializes git, and prints next steps. All operations are inline — no bundled scripts.
 version: 3.3.0
 ---
 
@@ -10,7 +10,7 @@ version: 3.3.0
 
 **Every file this skill writes comes from ONE repo:**
 
-> https://github.com/talentedgeai/infinite-leverage
+> https://github.com/edge8-ai/infinite-leverage
 
 | What | Canonical path |
 |---|---|
@@ -151,7 +151,7 @@ running the same command minutes apart get different scaffolds if `main` moves.
 
 ```bash
 TMP=$(mktemp -d)
-REPO=talentedgeai/infinite-leverage
+REPO=edge8-ai/infinite-leverage
 
 # The running plugin knows its own version. sed, not python3 — python3 is not a
 # prerequisite, and when it was missing the version came back empty and the

@@ -6,6 +6,32 @@ Format: `## [version] — YYYY-MM-DD` with sections Added / Changed / Fixed / Re
 
 ---
 
+## [2.8.5] — 2026-09-28
+
+**The org is `edge8-ai` now.** The GitHub org `talentedgeai` was renamed to `edge8-ai`;
+every repo this plugin clones, checks, or mirrors to moved with it.
+
+### Changed
+- **Every live `talentedgeai` reference now says `edge8-ai`**: the clone source in
+  `il-project` and `il-adopt` step 3, the tag lookup in `il-doctor`'s version check, the
+  plugin and marketplace manifests, the `mirror-release` target, `CLAUDE.md`'s release
+  flow, `docs/guide/CLIENT-SETUP.md`, the scaffold README and the intro slides. The old
+  names still resolved through GitHub's redirect, but a redirect stops working as soon
+  as anyone creates a new `talentedgeai` org, and every clone would then fail.
+  Past entries in this changelog keep the name that was true at the time.
+- **README rewritten.** It said 6 agents and 2 plugin skills (it's 4 of each), used the
+  old org, had a 3-step release flow without the tag or mirror, and didn't say that
+  installing the plugin doesn't install the agents. It now covers: install, what to run
+  in a new project vs. an existing repo, `gh auth login`, and restarting Claude Code so
+  the new agents load.
+- **Intro slides no longer describe v1** (eight agents, a global install into
+  `~/.claude/agents/`, hooks, a setup step that wrote permissions); merged in #101.
+
+Existing installs need no action: a marketplace added as `talentedgeai/infinite-leverage`
+keeps updating through the redirect, and these URLs are only used for new clones.
+
+---
+
 ## [2.8.4] — 2026-09-06
 
 **One env file, and it is gitignored.** The scaffold no longer ships a committed

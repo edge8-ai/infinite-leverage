@@ -143,7 +143,7 @@ if [ -f "$PJ" ]; then
   # this silently report "unknown".
   LOCAL_V=$(sed -nE 's/^[[:space:]]*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/p' "$PJ" | head -1)
   pass "installed plugin" "v${LOCAL_V:-unknown}"
-  REMOTE_V=$(git ls-remote --tags https://github.com/talentedgeai/infinite-leverage 'refs/tags/v*' 2>/dev/null \
+  REMOTE_V=$(git ls-remote --tags https://github.com/edge8-ai/infinite-leverage 'refs/tags/v*' 2>/dev/null \
     | sed 's#.*refs/tags/v##' | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -1)
   if [ -z "$REMOTE_V" ]; then
     info "could not reach the marketplace to compare versions (offline is fine)"
