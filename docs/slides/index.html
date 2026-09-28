@@ -201,7 +201,7 @@
       <div class="card"><div class="tag">Mindset</div><p style="margin-top:10px">Humans orchestrate; agents act. AI is the new CMS. Agents are folders, not magic.</p></div>
       <div class="card"><div class="tag">Infrastructure</div><p style="margin-top:10px">GitHub for everything. Vercel deploys only via push. Supabase for data &amp; subscribers.</p></div>
       <div class="card"><div class="tag">Building</div><p style="margin-top:10px">Design system before components. Concrete workflows. Schedules auto-run. Skills for admin.</p></div>
-      <div class="card"><div class="tag">Team &amp; Ops</div><p style="margin-top:10px">Eight fixed roles — no improvising. PM plans epics. PM reads git history first.</p></div>
+      <div class="card"><div class="tag">Team &amp; Ops</div><p style="margin-top:10px">Four fixed roles — no improvising. PM plans epics. PM reads git history first.</p></div>
       <div class="card"><div class="tag">Continuity</div><p style="margin-top:10px">QA knows what AI can &amp; can't test. Context handed off via files + memory. Work outlives the operator.</p></div>
       <div class="card" style="background:rgba(26,158,116,.10);border-color:rgba(26,158,116,.35)"><div class="tag">The payoff</div><h3 style="margin-top:10px">Leverage</h3><p style="margin-top:4px">One operator, the output of a full team.</p></div>
     </div>
@@ -210,7 +210,7 @@
   <!-- 6 — TEAM OVERVIEW -->
   <section class="slide" data-bg="dark">
     <div class="eyebrow">Meet the Team</div>
-    <h2>Two teams, <span class="em">eight agents</span></h2>
+    <h2>One team, <span class="em">four agents</span></h2>
     <div class="two" style="margin-top:10px">
       <div class="card">
         <div class="tag">Build Team</div>
@@ -325,10 +325,10 @@
     <div class="eyebrow">The Setup Path</div>
     <h2>From zero to a shipping team</h2>
     <div class="steps">
-      <div class="step"><div class="n">1</div><div><h3>Phase 1 — Prerequisites (Claude Chat)</h3><p>Create accounts &amp; keys: GitHub, Claude Pro, Vercel, Supabase, Gemini, Resend. Install Homebrew + git. Save a local credentials file — never committed.</p></div></div>
-      <div class="step"><div class="n">2</div><div><h3>Phase 2 — Automated setup (Claude Code)</h3><p>Claude installs the CLIs, writes permissions &amp; rules, connects Supabase MCP (one browser click), scaffolds the project, and deploys via <code>git push</code>.</p></div></div>
-      <div class="step"><div class="n">3</div><div><h3>Install the team</h3><p>All 8 agents are fetched from the canonical repo into <code>~/.claude/agents/</code>; hooks &amp; guardrails wired; scheduled routines registered.</p></div></div>
-      <div class="step"><div class="n">4</div><div><h3>Brief the PM &amp; go</h3><p>The Product Manager gathers business context, then you simply ask — the team plans, builds, tests, publishes, and nurtures.</p></div></div>
+      <div class="step"><div class="n">1</div><div><h3>Prerequisites</h3><p>Accounts on GitHub, Claude, Vercel and Supabase. Locally: <code>git</code>, an authenticated <code>gh</code>, <code>node</code>/<code>npm</code>, <code>perl</code> and <code>rsync</code> — <code>/il-doctor</code> checks every one.</p></div></div>
+      <div class="step"><div class="n">2</div><div><h3>Install the plugin</h3><p>Add the <code>talentedgeai/infinite-leverage</code> marketplace once; updates arrive through it. No permissions granted, no hooks, nothing written to <code>~/.claude/</code>.</p></div></div>
+      <div class="step"><div class="n">3</div><div><h3>Scaffold with /il-project</h3><p>The 4 agents, their skills and the engineering rules land in the project's own <code>.claude/</code>, alongside seeded product docs, a Next.js app and a first commit. Existing repos use <code>/il-adopt</code>.</p></div></div>
+      <div class="step"><div class="n">4</div><div><h3>Brief the PM &amp; go</h3><p>The Product Manager gathers business context, then you simply ask — the team plans, builds, tests, and publishes.</p></div></div>
     </div>
   </section>
 
@@ -357,13 +357,13 @@
     <div class="eyebrow">Expected Outcome</div>
     <h2>What you get</h2>
     <div class="grid g3" style="margin-top:18px">
-      <div class="card center"><div class="kpi">8</div><h3 style="margin-top:12px">Specialist agents</h3><p>A standing team that acts when asked.</p></div>
+      <div class="card center"><div class="kpi">4</div><h3 style="margin-top:12px">Specialist agents</h3><p>A standing team that acts when asked.</p></div>
       <div class="card center"><div class="kpi">1</div><h3 style="margin-top:12px">Live website</h3><p>Deployed on Vercel from day one.</p></div>
       <div class="card center"><div class="kpi">∞</div><h3 style="margin-top:12px">Leverage</h3><p>Solo operator, full-team output.</p></div>
     </div>
     <ul class="clean" style="margin-top:28px">
-      <li>A live site, a planning + build + QA + deploy loop, and a content pipeline that runs on a schedule.</li>
-      <li>Guardrails that prevent the dangerous stuff — force-push, direct deploys, sending email without approval.</li>
+      <li>A live site and a planning + build + QA + deploy loop.</li>
+      <li>Guardrails that prevent the dangerous stuff — force-push, direct deploys, committed secrets.</li>
       <li>Every decision and handoff recorded in the repo, so any machine or session continues seamlessly.</li>
     </ul>
   </section>
