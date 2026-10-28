@@ -6,6 +6,16 @@ description: >-
 
 # PM: Epic Writing — Full Discovery Workflow
 
+## Planning: the 5 Ds (Edge8 standard)
+
+Every plan, brief, PRD, spec or epic is structured on the five Ds, in this order. It is the core thing Edge8 teaches (A01). Never substitute another framework (Double Diamond, design-thinking "Discover/Define", "Develop/Deploy").
+
+1. **Define the problem.** A problem statement: who feels it, what it costs, why now. No success criteria here.
+2. **Discover the data.** What data is needed, what exists, what is new. Datasources, tables, migrations, fields and files live here.
+3. **Design the workflow.** The workflows and, for an application, the wireframes. The change list and build phases follow from them.
+4. **Determine the ROI.** The FAST goal (frequently discussed, ambitious, specific, transparent), the success measures and the return. Success lives here.
+5. **Definition of Done.** What counts as finished, where it deploys, and what people need to understand.
+
 Translates a client idea into a fully specified epic with a feature branch and a
 dev handoff package. No client input is required after the initial idea and one
 round of clarification questions.

@@ -6,6 +6,22 @@ Format: `## [version] — YYYY-MM-DD` with sections Added / Changed / Fixed / Re
 
 ---
 
+## [2.8.6] — 2026-10-28
+
+**Planning follows the 5 Ds.** Every plan, brief, PRD, spec or epic is structured on
+Define the problem, Discover the data, Design the workflow, Determine the ROI,
+Definition of Done, in that order. It is the A01 framework Edge8 teaches; no other
+planning structure substitutes for it.
+
+### Changed
+- `pm-epic-writing`, `dev-feature-plan` and `pm-documentation` open with the 5 Ds rule;
+  the epic format now reads **Define the problem** / **Determine the ROI** /
+  **Definition of Done** in place of "The problem" and "What success looks like",
+  and "Definition of done" is no longer on the list of fields an epic must not use
+- The scaffold's product-manager persona carries the same rule
+
+---
+
 ## [2.8.5] — 2026-09-28
 
 **The org is `edge8-ai` now.** The GitHub org `talentedgeai` was renamed to `edge8-ai`;
