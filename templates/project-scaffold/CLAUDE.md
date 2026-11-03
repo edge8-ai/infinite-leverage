@@ -6,6 +6,7 @@ This file is the entry point Claude Code reads when this repo is opened. It defi
 - Website: Next.js + Tailwind + shadcn (`website/`)
 - Database: Supabase (`website/supabase/`)
 - Deployment: Vercel (auto-deploys when a PR merges to `main` — nobody pushes to `main` directly)
+- Region: {Region} (Vercel `{Vercel Region}` + Supabase `{Supabase Region}`). Both halves of the stack live in this one region: `website/vercel.json` pins the functions, and the Supabase project was created with `--region {Supabase Region}`. Never move one without the other (`/il-doctor` flags a split).
 
 <!-- BEGIN: AGENT-DELEGATION (managed by infiniteleverage skills — do not delete this block) -->
 ## Agent delegation (auto-routing)

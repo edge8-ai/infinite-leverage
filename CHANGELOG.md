@@ -6,6 +6,35 @@ Format: `## [version] — YYYY-MM-DD` with sections Added / Changed / Fixed / Re
 
 ---
 
+## [2.9.0] — 2026-11-03
+
+**Vercel and Supabase land in the same region.** Vercel Functions default to Washington
+(`iad1`), and nothing in the scaffold said where the database should go, so a client in
+Singapore could end up paying six serial 230 ms round trips on every page. The scaffold
+now asks "Where will most users be?" once, up front, and one answer sets both.
+
+### Added
+- `il-project` gathers the region as a required input (never defaulted) and resolves it
+  through a pairing table: Vercel codes and Supabase ids both sit on AWS regions, so
+  Singapore is `sin1` + `ap-southeast-1`, Frankfurt `fra1` + `eu-central-1`, and so on
+  for 17 pairs. An existing Supabase project's region decides when the client already
+  has one
+- `templates/project-scaffold/website/vercel.json` pins `"regions"` to the chosen code;
+  the scaffold `CLAUDE.md` records the pair under Stack, and the README and
+  `website/.env.local` name the Supabase region to create the project in
+- `/il-doctor` checks that `website/vercel.json` and the Supabase project (live through
+  `supabase projects list` when the CLI is signed in, else the pair recorded in
+  `CLAUDE.md`) sit in the same region, and says how to fix a split
+
+### Changed
+- Step 11's next steps print `supabase projects create --region <id>` before the
+  env-file step; step 12d links Vercel from `website/` (its root directory) so
+  `vercel.json` is picked up
+- Client setup guide Prompt 2 picks the Supabase region by where the users are, so the
+  project it creates already matches what the scaffold will pin
+
+---
+
 ## [2.8.6] — 2026-10-28
 
 **Planning follows the 5 Ds.** Every plan, brief, PRD, spec or epic is structured on

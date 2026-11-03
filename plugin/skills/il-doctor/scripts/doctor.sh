@@ -130,6 +130,48 @@ if [ -f "FOLDER-STRUCTURE.md" ] || [ -d ".claude/agents" ] \
   else
     fail "CLAUDE.md delegation block" "fix: $REFRESH"
   fi
+
+  # Region pairing. Vercel Functions default to iad1 (Washington); a Supabase
+  # project anywhere else sends every query across an ocean. The scaffold pins
+  # website/vercel.json and records the pair in CLAUDE.md (Stack → Region).
+  # Check they still agree, against the live Supabase project when the CLI can
+  # see it, else against the recorded pair. Reads a project ref only, never a key.
+  if [ -f "website/vercel.json" ] || [ -d "website/supabase" ]; then
+    VREG=$(sed -nE 's/.*"regions"[[:space:]]*:[[:space:]]*\[[[:space:]]*"([a-z0-9]+)".*/\1/p' website/vercel.json 2>/dev/null | head -1)
+    if [ -z "$VREG" ]; then
+      fail "Vercel region pinned" 'website/vercel.json has no "regions", so functions run in iad1 (Washington); fix: "regions": ["<code paired with your Supabase region>"]'
+    else
+      # Vercel codes sit on AWS regions, which are exactly Supabase's region ids.
+      case "$VREG" in
+        sin1) WANT=ap-southeast-1 ;; syd1) WANT=ap-southeast-2 ;; hnd1) WANT=ap-northeast-1 ;;
+        icn1) WANT=ap-northeast-2 ;; hkg1) WANT=ap-east-1 ;;      bom1) WANT=ap-south-1 ;;
+        fra1) WANT=eu-central-1 ;;  lhr1) WANT=eu-west-2 ;;      dub1) WANT=eu-west-1 ;;
+        cdg1) WANT=eu-west-3 ;;     arn1) WANT=eu-north-1 ;;     iad1) WANT=us-east-1 ;;
+        cle1) WANT=us-east-2 ;;     sfo1) WANT=us-west-1 ;;      pdx1) WANT=us-west-2 ;;
+        yul1) WANT=ca-central-1 ;;  gru1) WANT=sa-east-1 ;;      kix1) WANT=ap-northeast-3 ;;
+        cpt1) WANT=af-south-1 ;;    *)    WANT="" ;;
+      esac
+      SREG=$(sed -nE 's/^- Region:.*Supabase `([a-z0-9-]+)`.*/\1/p' CLAUDE.md 2>/dev/null | head -1)
+      SRC="recorded in CLAUDE.md"
+      REF=$(cat website/supabase/.temp/project-ref 2>/dev/null)
+      [ -z "$REF" ] && REF=$(sed -nE 's#^NEXT_PUBLIC_SUPABASE_URL=https://([a-z0-9]+)\.supabase\.co.*#\1#p' website/.env.local 2>/dev/null | head -1)
+      SB=""
+      command -v supabase >/dev/null 2>&1 && SB=supabase
+      [ -x "website/node_modules/.bin/supabase" ] && SB="website/node_modules/.bin/supabase"
+      if [ -n "$REF" ] && [ -n "$SB" ]; then
+        LIVE=$("$SB" projects list -o json 2>/dev/null \
+          | perl -0ne "print \$1 if /\"ref\":\\s*\"$REF\".*?\"region\":\\s*\"([^\"]+)\"/s")
+        [ -n "$LIVE" ] && { SREG="$LIVE"; SRC="live project $REF"; }
+      fi
+      if [ -z "$SREG" ]; then
+        info "Vercel pinned to $VREG; Supabase region unknown (no CLAUDE.md record, no linked project)"
+      elif [ "$SREG" = "$WANT" ]; then
+        pass "Vercel + Supabase in one region" "$VREG + $SREG ($SRC)"
+      else
+        fail "Vercel + Supabase in one region" "Vercel $VREG vs Supabase $SREG ($SRC): every query crosses regions; fix: a Supabase project cannot move, so set website/vercel.json \"regions\" to the code paired with $SREG (il-project SKILL.md, Region pairing)"
+      fi
+    fi
+  fi
 fi
 
 # ── C2. Plugin version vs the marketplace ────────────────────────────────────

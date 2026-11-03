@@ -40,6 +40,7 @@ The operator wants a fresh project folder that follows the canonical Infinite Le
 | Project slug (kebab-case) | `acme-bookstore` | yes | used as folder name AND GitHub repo name |
 | Project display name | `Acme Bookstore` | yes | |
 | Parent directory | `~/code-projects` | yes (default `~/code-projects`) | |
+| Where most users will be (region) | `Singapore` | **yes** | one answer sets both the Vercel and the Supabase region (see "Region pairing" below). Never defaulted: Vercel's own default is Washington (`iad1`), and a database anywhere else costs every page several round trips across an ocean. |
 | First topic date | `2026-05-20` | optional (defaults to today) | |
 | First topic slug | `welcome-launch` | optional | |
 | GitHub placement | personal vs org | **interactive** | resolved during Step 12 — never assume |
@@ -62,6 +63,60 @@ If present, hold it in working memory and apply it in **Step 8.6** to fill `docs
 
 If present, apply it in Step 8.7. **If absent, Step 8.7 picks a random DESIGN.md from https://getdesign.md/** and seeds the brand files from it — so a project is never left style-less.
 
+### Region pairing (one question, two services)
+
+Vercel Functions default to Washington (`iad1`) for every new project, and nothing
+else in the stack says where the database should go. A Supabase project created
+anywhere else puts an ocean between the app and its data: a page that makes six
+serial queries pays six round trips of 200 ms or more, on every request. So ask
+once, early, before anything is provisioned, and let one answer set both:
+
+> Where will most of this project's users be?
+> Singapore · Sydney · Tokyo · Mumbai · Frankfurt · London · US East (Virginia) ·
+> US West (Oregon) · São Paulo · or name another city
+
+Resolve the answer to one row of this table. Vercel's region codes and Supabase's
+region ids both sit on AWS regions (Vercel's own region list prints the AWS name
+beside each code, and `supabase projects create --region` takes exactly those names),
+so every pair below is the same data centre:
+
+| Answer | `REGION_LABEL` | `VERCEL_REGION` | `SUPABASE_REGION` |
+|---|---|---|---|
+| Singapore | Singapore | `sin1` | `ap-southeast-1` |
+| Sydney | Sydney | `syd1` | `ap-southeast-2` |
+| Tokyo | Tokyo | `hnd1` | `ap-northeast-1` |
+| Seoul | Seoul | `icn1` | `ap-northeast-2` |
+| Hong Kong | Hong Kong | `hkg1` | `ap-east-1` |
+| Mumbai | Mumbai | `bom1` | `ap-south-1` |
+| Frankfurt | Frankfurt | `fra1` | `eu-central-1` |
+| London | London | `lhr1` | `eu-west-2` |
+| Dublin | Dublin | `dub1` | `eu-west-1` |
+| Paris | Paris | `cdg1` | `eu-west-3` |
+| Stockholm | Stockholm | `arn1` | `eu-north-1` |
+| US East | US East (Virginia) | `iad1` | `us-east-1` |
+| US East, Ohio | US East (Ohio) | `cle1` | `us-east-2` |
+| US West | US West (Oregon) | `pdx1` | `us-west-2` |
+| US West, California | US West (N. California) | `sfo1` | `us-west-1` |
+| Canada | Canada (Montréal) | `yul1` | `ca-central-1` |
+| São Paulo | São Paulo | `gru1` | `sa-east-1` |
+
+Cape Town and Osaka exist only on Vercel, Zurich only on Supabase: offer the nearest
+pair instead (Frankfurt for Zurich, Tokyo for Osaka). Verified against
+https://vercel.com/docs/regions and `supabase projects create --help` (CLI 2.119) on
+2026-11-03; re-check both before adding a row.
+
+**If a Supabase project already exists for this client** (the client setup guide's
+Prompt 2 creates one before the scaffold runs), its region decides: read it with
+`supabase projects list -o json`, pick the row whose `SUPABASE_REGION` matches, and
+tell the operator which pair that is. A Supabase project cannot change region; the
+Vercel side is one line in `vercel.json`.
+
+The three values feed Step 4a, which substitutes `{Region}`, `{Vercel Region}`
+and `{Supabase Region}` in the scaffold's `CLAUDE.md`, `README.md`, `website/.env.local`
+and `website/vercel.json` (the pin that keeps Vercel Functions off `iad1`). Step 11 prints
+the matching `supabase projects create --region` command, and `/il-doctor` fails a
+project whose two halves have drifted apart.
+
 **Confirm with the operator before running step 1.** Print a dry-run preview:
 
 ```
@@ -69,6 +124,7 @@ About to scaffold:
   Target          : /Users/.../acme-bookstore
   Project         : Acme Bookstore
   Slug            : acme-bookstore
+  Region          : Singapore (Vercel sin1 + Supabase ap-southeast-1)   [sets both]
   First date      : 2026-05-20
   First topic     : welcome-launch
   Next.js         : YES (App Router, TypeScript, Tailwind)        [mandatory]
@@ -86,7 +142,7 @@ How to run this skill regardless of permission mode (interactive, Auto, or
 bypass-permissions):
 
 1. **Gather inputs once.** If the invocation already carries the required
-   inputs (slug, name, parent dir), proceed — do not re-confirm what the
+   inputs (slug, name, parent dir, region), proceed — do not re-confirm what the
    operator already stated. If any REQUIRED input is missing, ask for ALL
    missing inputs in ONE question, then run end-to-end without further pauses.
    Optional inputs silently take their defaults.
@@ -194,6 +250,9 @@ against the template with exactly such a name.
 export PROJECT_NAME="Acme Bookstore"
 export PROJECT_SLUG="acme-bookstore"
 export FIRST_DATE="2026-05-20"       # YYYY-MM-DD, real first publish date
+export REGION_LABEL="Singapore"      # all three from ONE row of the "Region pairing"
+export VERCEL_REGION="sin1"           # table above; never guessed, never defaulted
+export SUPABASE_REGION="ap-southeast-1"
 
 # 4a. Replace branded placeholders everywhere
 find "$TARGET" -type f \
@@ -201,7 +260,7 @@ find "$TARGET" -type f \
   \( -name '*.md' -o -name '*.html' -o -name '*.json' \
      -o -name '*.txt' -o -name '*.example' -o -name '.gitignore' \
      -o -name '.env*' -o -name 'CLAUDE.md' -o -name 'README.md' \) \
-  -exec perl -i -pe 's/\Q{Project Name}\E/$ENV{PROJECT_NAME}/g' {} +
+  -exec perl -i -pe 's/\Q{Project Name}\E/$ENV{PROJECT_NAME}/g; s/\Q{Region}\E/$ENV{REGION_LABEL}/g; s/\Q{Vercel Region}\E/$ENV{VERCEL_REGION}/g; s/\Q{Supabase Region}\E/$ENV{SUPABASE_REGION}/g' {} +
 
 # 4b. Replace YYYY-MM-DD ONLY inside folders where it represents a real date
 for scope in \
@@ -660,8 +719,10 @@ At this point the project is fully scaffolded **locally** — Next.js is in plac
 
 Next steps locally:
 1. cd $TARGET
-2. Fill in website/.env.local   # shipped by the scaffold, gitignored; it lists every
-                                # var the app reads, with where to get it
+2. Create the Supabase project in the region Vercel is pinned to ($REGION_LABEL):
+     npx supabase projects create "$PROJECT_NAME" --region $SUPABASE_REGION
+   then fill in website/.env.local (shipped by the scaffold, gitignored; it lists
+   every var the app reads, with where to get it)
 3. cd website && npm run build   # verify the app compiles (the agents never start a dev
                                  # server — you preview through Vercel once the repo is linked)
 4. Open the repo in Claude Code
@@ -744,14 +805,15 @@ If creation fails because the repo already exists, ask: "Use the existing repo a
 ```
 ✅ Pushed to https://github.com/$GH_OWNER/$PROJECT_SLUG (private)
 
-To wire up auto-deploys on Vercel:
-  cd $TARGET && vercel link
+To wire up auto-deploys on Vercel (root directory website/, whose vercel.json pins
+functions to $VERCEL_REGION, next to the Supabase project in $SUPABASE_REGION):
+  cd $TARGET/website && vercel link
 ```
 
 ## What this skill does NOT do
 
-- Configure Supabase / Vercel — account setup is the operator's job (the printed next-steps include the exact commands)
-- Link the repo to Vercel for auto-deploy — printed as a next-step for the operator (`vercel link`)
+- Create the Supabase or Vercel project — account setup is the operator's job (the printed next-steps include the exact commands). The skill does fix *where* they go: the region question sets `website/vercel.json` and the printed `supabase projects create --region` command, so both land in the same region
+- Link the repo to Vercel for auto-deploy — printed as a next-step for the operator (`vercel link` from `website/`)
 - Generate any content — content authoring is the operator's job
 - Write product.md / epics.md content **from scratch** — that's `pm-documentation` via the PM agent. Step 8.6 only seeds these files when the operator hands over planning attachments (or a rich inline description) at invocation time; otherwise they stay as placeholders.
 - Define the brand **voice/tone** — Step 8.7 seeds only the *visual* side (palette, typography, visual style) of `docs/brand/style-guide.md`. Voice, vocabulary, and content formats stay for `pm-client-interview` unless planning docs already specify them.

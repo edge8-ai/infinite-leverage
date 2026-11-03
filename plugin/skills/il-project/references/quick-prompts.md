@@ -17,9 +17,10 @@ getdesign.md reference is used so the project is never style-less.
 1. Project slug? (kebab-case — folder name and GitHub repo name)
 2. Human-readable project name?
 3. Parent directory? (default `~/code-projects`)
-4. First topic date? (default today) and slug? (default `welcome-launch`)
-5. Any planning docs or a product description to seed `docs/product/`? (optional)
-6. Any styling preference — reference brand, palette, mood? (optional; random getdesign.md pick otherwise)
+4. Where will most users be? (Singapore, Sydney, Tokyo, Frankfurt, London, US East, …; one answer sets the Vercel and the Supabase region, never defaulted)
+5. First topic date? (default today) and slug? (default `welcome-launch`)
+6. Any planning docs or a product description to seed `docs/product/`? (optional)
+7. Any styling preference — reference brand, palette, mood? (optional; random getdesign.md pick otherwise)
 
 Not asked: Next.js — it is mandatory. GitHub — asked once, at the very end (Step 12),
 unless the invocation already answered it ("no GitHub" / "create the repo").
@@ -31,6 +32,7 @@ About to scaffold:
   Target          : /Users/.../acme-bookstore
   Project         : Acme Bookstore
   Slug            : acme-bookstore
+  Region          : Singapore (Vercel sin1 + Supabase ap-southeast-1)   [sets both]
   First date      : 2026-05-20
   First topic     : welcome-launch
   Next.js         : YES (App Router, TypeScript, Tailwind)        [mandatory]
@@ -56,3 +58,4 @@ Only run after an explicit "y".
 | Step 9e red (`lint` / `tsc` / `build` / `vitest`) | starter kit and create-next-app output disagree, or 9d's provider wiring was skipped | fix and re-run 9e — never commit past a red build (Execution contract, rule 5) |
 | Placeholder still present after the run | filename starts with `PH-` (intentional) | rename deliberately on first real use |
 | `/il-doctor` reports FAILs inside the new project | a step was skipped or a refresh is due | run `/il-adopt` — the one refresh path for scaffolded and adopted repos |
+| `/il-doctor` FAIL "Vercel + Supabase in one region" | the Supabase project sits in a region other than the one `website/vercel.json` pins | a Supabase project cannot move: re-pin `vercel.json` to the code paired with the Supabase region (table under "Region pairing" in SKILL.md) |

@@ -13,13 +13,15 @@ commit. Three steps to a live site:
 
 ### 1 · Supabase (database + auth)
 
-Create a project at [supabase.com](https://supabase.com), then fill in
-`website/.env.local` (shipped by the scaffold, gitignored — it lists every var the
-app reads with a comment on where to get it).
+Create a project in **{Supabase Region}** ({Region}, the region chosen at
+scaffold time; `CLAUDE.md` → Stack records it), then fill in `website/.env.local`
+(shipped by the scaffold, gitignored — it lists every var the app reads with a
+comment on where to get it).
 
 Apply the starter migrations (chat, notifications, subscriptions):
 
 ```bash
+npx supabase projects create "{Project Name}" --region {Supabase Region}   # or pick {Region} in the dashboard
 npx supabase link --project-ref <project-ref>
 npx supabase db push
 ```
@@ -35,7 +37,8 @@ npm run dev
 
 ```bash
 cd website
-npx vercel link          # create/link the Vercel project
+npx vercel link          # create/link the Vercel project (root directory: website/)
+                         # vercel.json pins functions to {Vercel Region}, next to Supabase
 npx vercel env pull      # or add the .env.local vars in the Vercel dashboard
 git push                 # every push to main auto-deploys
 ```
