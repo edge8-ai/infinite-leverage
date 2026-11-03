@@ -137,6 +137,11 @@ Go in this order:
    - Walk me through supabase.com — "sign in with GitHub" is one click.
      Then create ONE new project: tell me exactly what to click and what
      to name things.
+   - Before I click Create, ask me where most of my customers are and
+     pick the project's Region to match (Singapore, Sydney, Tokyo,
+     Frankfurt, London, US East, and so on). Tell me which one you chose
+     and write it down: the project builder asks for it later, and the
+     website must be hosted in the same place.
    - Tell me to save the database password it shows me somewhere safe. We
      come back for the project's keys later — today it just needs to
      exist.
@@ -203,7 +208,7 @@ tell me it worked if it didn't.
 
 ## Prompt 4 — Create your project
 
-The build. Fill in the two highlighted lines (and describe your business in a sentence
+The build. Fill in the three highlighted lines (and describe your business in a sentence
 or two), paste it, and Claude scaffolds the project, connects your accounts one key at a
 time, and finishes by telling you the first three things to try.
 
@@ -215,6 +220,8 @@ me to edit a file; you make the changes and tell me what you did.
 1. Run /il-project to build my project:
    - Call it: <PROJECT NAME>
    - Folder name: <project-name-with-dashes>
+   - Most of my customers are in: <CITY OR COUNTRY> (the same place you
+     picked for the Supabase region in 2 - Set up your accounts)
    <Describe your business in a few sentences — what it does, who it's for,
    what you want built first. Mention a website you like the look of if you
    have one. Delete this line to answer questions later instead.>

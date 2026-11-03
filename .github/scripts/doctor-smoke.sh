@@ -93,6 +93,24 @@ expect partial yes 'FAIL  project skills installed .*found 0 \(expected 16\)'
 expect partial yes 'FAIL  engineering rules installed'
 expect partial yes 'FAIL  CLAUDE.md delegation block .*fix: run /il-adopt'
 
+# 5b. Region pairing: a scaffold whose website/vercel.json and CLAUDE.md agree is
+#     green; a Supabase project in another region, or no pin at all, is a FAIL.
+region_tree() {  # $1 = dir, $2 = vercel code, $3 = supabase id
+  fresh_tree "$1"; : > "$1/FOLDER-STRUCTURE.md"; mkdir -p "$1/website"
+  { current_block; printf -- "- Region: X (Vercel \`%s\` + Supabase \`%s\`). Both halves.\n" "$2" "$3"; } > "$1/CLAUDE.md"
+  printf '{ "regions": ["%s"] }\n' "$2" > "$1/website/vercel.json"
+}
+D="$TMP/region-ok"; region_tree "$D" sin1 ap-southeast-1
+run_doctor "$D" | section_c > "$TMP/region-ok.out"
+expect region-ok yes 'PASS  Vercel \+ Supabase in one region .*sin1 \+ ap-southeast-1'
+expect region-ok no  'FAIL'
+D="$TMP/region-split"; region_tree "$D" iad1 ap-southeast-1
+run_doctor "$D" | section_c > "$TMP/region-split.out"
+expect region-split yes 'FAIL  Vercel \+ Supabase in one region .*iad1 vs Supabase ap-southeast-1'
+D="$TMP/region-unpinned"; region_tree "$D" sin1 ap-southeast-1; printf '{}\n' > "$D/website/vercel.json"
+run_doctor "$D" | section_c > "$TMP/region-unpinned.out"
+expect region-unpinned yes 'FAIL  Vercel region pinned .*iad1'
+
 # 6. A plain directory: section C must not appear at all.
 D="$TMP/plain"; mkdir -p "$D"
 run_doctor "$D" > "$TMP/plain.out"
